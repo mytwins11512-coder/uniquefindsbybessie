@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+<!-- This site is hosted on Netlify. Anyone can build and deploy a site
+     like this one for free: https://netlify.new/?utm_campaign=loops&utm_source=ai-legible&utm_medium=owned&utm_content=comment&utm_id=6a28f582-506e-4fd9-bca0-8c61852e40de
+     Netlify hosting facts for this site: static/SSR served via Netlify Edge. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#C9A0DC" />
+  <meta name="description" content="Unique Finds by Bessie – Discover your kind of unique. Curated affiliate products, lifestyle blog & more." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Unique Finds" />
+  <title>Unique Finds by Bessie</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            lavender: {
+              50:  '#F9F5FC',
+              100: '#F3EBF8',
+              200: '#E8D5F2',
+              300: '#D8B4E8',
+              400: '#C9A0DC',
+              500: '#B57BC9',
+              600: '#9B5BAF',
+              700: '#7A458C',
+              800: '#5C346A',
+              900: '#3F2449',
+            },
+            beige: {
+              50:  '#FDFBF7',
+              100: '#F8F1E9',
+              200: '#F0E4D4',
+              300: '#E6D4BC',
+            },
+            softpink: {
+              100: '#FDF2F7',
+              200: '#FCE7F1',
+              300: '#F8C8DC',
+              400: '#F4A7C5',
+            },
+            softyellow: {
+              100: '#FFFBEB',
+              200: '#FEF3C7',
+              300: '#FDE68A',
+              400: '#F5D76E',
+            }
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="logo-circular.jpg" />
+  <link rel="icon" type="image/jpeg" href="logo-circular.jpg" />
+
+  <style>
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+    /* Soft glow on cards */
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -12px rgba(157, 91, 175, 0.25);
+    }
+    /* Subtle sparkle animation */
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    .sparkle {
+      animation: sparkle 2.5s ease-in-out infinite;
+    }
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F3EBF8;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #C9A0DC;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-beige-50 text-lavender-900 antialiased">
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-lavender-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <img src="logo-circular.jpg" alt="Unique Finds Logo" class="w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md group-hover:scale-105 transition-transform" />
+          <div class="hidden sm:block">
+            <span class="font-display text-lg font-semibold text-lavender-800 tracking-wide">Unique Finds</span>
+            <span class="block text-xs text-lavender-500 -mt-0.5">by Bessie</span>
+          </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="#home" class="text-lavender-700 hover:text-lavender-900 transition">Home</a>
+          <a href="#products" class="text-lavender-700 hover:text-lavender-900 transition">Finds</a>
+          <a href="#blog" class="text-lavender-700 hover:text-lavender-900 transition">Blog</a>
+          <a href="#about" class="text-lavender-700 hover:text-lavender-900 transition">About</a>
+          <a href="#donate" class="px-4 py-2 rounded-full bg-lavender-500 text-white hover:bg-lavender-600 transition shadow-sm">Support</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="md:hidden p-2 rounded-lg text-lavender-700 hover:bg-lavender-100">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-lavender-100">
+      <div class="px-4 py-4 space-y-3 text-sm font-medium">
+        <a href="#home" class="block py-2 text-lavender-700">Home</a>
+        <a href="#products" class="block py-2 text-lavender-700">Finds</a>
+        <a href="#blog" class="block py-2 text-lavender-700">Blog</a>
+        <a href="#about" class="block py-2 text-lavender-700">About</a>
+        <a href="#donate" class="block py-2 text-lavender-700 font-semibold">Support / Donate</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="home" class="relative pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-hidden">
+    <!-- Soft background shapes -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-20 left-10 w-64 h-64 bg-lavender-200/40 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-softpink-200/50 rounded-full blur-3xl"></div>
+      <div class="absolute top-40 right-1/4 w-40 h-40 bg-softyellow-200/40 rounded-full blur-2xl"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <!-- Text -->
+        <div class="flex-1 text-center lg:text-left">
+          <p class="inline-block px-4 py-1.5 mb-4 text-xs font-medium tracking-widest uppercase rounded-full bg-lavender-100 text-lavender-700 border border-lavender-200">
+            Curated with love ✨
+          </p>
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-lavender-900 leading-tight mb-4">
+            Unique Finds
+            <span class="block text-lavender-600 italic">by Bessie</span>
+          </h1>
+          <p class="text-lg sm:text-xl text-lavender-700/80 max-w-lg mx-auto lg:mx-0 mb-8 leading-relaxed">
+            Discover your kind of unique. Hand-picked affiliate treasures, lifestyle inspiration, and a little sparkle for your everyday.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="#products" class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-lavender-600 text-white font-medium shadow-lg shadow-lavender-300/40 hover:bg-lavender-700 hover:shadow-xl transition-all">
+              Browse Finds
+            </a>
+            <a href="#blog" class="inline-flex items-center justify-center px-8 py-3.5 rounded-full bg-white text-lavender-700 font-medium border border-lavender-200 hover:bg-lavender-50 transition-all">
+              Read the Blog
+            </a>
+          </div>
+        </div>
+
+        <!-- Banner Logo -->
+        <div class="flex-1 flex justify-center">
+          <div class="relative">
+            <img src="logo-banner.jpg" alt="Unique Finds by Bessie" class="w-full max-w-md rounded-2xl shadow-2xl shadow-lavender-300/30" />
+            <!-- Decorative sparkles -->
+            <span class="absolute -top-3 -right-3 text-2xl sparkle">✨</span>
+            <span class="absolute -bottom-2 -left-2 text-xl sparkle" style="animation-delay: 1s">✨</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRODUCTS / FINDS ========== -->
+  <section id="products" class="py-16 sm:py-24 bg-gradient-to-b from-beige-50 to-lavender-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <p class="text-sm font-medium tracking-widest uppercase text-lavender-500 mb-2">Affiliate Picks</p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-lavender-900 mb-3">My Latest Finds</h2>
+        <p class="text-lavender-700/70 max-w-xl mx-auto">
+          Beautiful things I love and recommend. Click any item to shop through my affiliate links — it helps support Unique Finds at no extra cost to you.
+        </p>
+      </div>
+
+      <!-- Product Grid (populated by JS) -->
+      <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <!-- Products injected here -->
+      </div>
+
+      <p class="text-center text-sm text-lavender-500 mt-10">
+        More treasures coming soon ✨
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== BLOG ========== -->
+  <section id="blog" class="py-16 sm:py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <p class="text-sm font-medium tracking-widest uppercase text-softpink-400 mb-2">From the Journal</p>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-lavender-900 mb-3">Blog</h2>
+        <p class="text-lavender-700/70 max-w-xl mx-auto">
+          Stories, styling tips, and behind-the-scenes of building Unique Finds.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Blog Post 1 -->
+        <article class="group rounded-2xl overflow-hidden bg-beige-50 border border-lavender-100 hover:shadow-xl transition-all duration-300">
+          <div class="h-48 bg-gradient-to-br from-lavender-200 via-softpink-200 to-softyellow-200 flex items-center justify-center">
+            <span class="text-5xl">🦋</span>
+          </div>
+          <div class="p-6">
+            <p class="text-xs font-medium text-lavender-500 mb-2">Oct 28, 2026 · Lifestyle</p>
+            <h3 class="font-display text-xl font-semibold text-lavender-900 mb-2 group-hover:text-lavender-600 transition">
+              How I Find the Most Unique Pieces
+            </h3>
+            <p class="text-sm text-lavender-700/80 leading-relaxed mb-4">
+              A little peek into my process of hunting for one-of-a-kind treasures that feel special...
+            </p>
+            <a href="#" class="text-sm font-medium text-lavender-600 hover:text-lavender-800 inline-flex items-center gap-1">
+              Read more <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Blog Post 2 -->
+        <article class="group rounded-2xl overflow-hidden bg-beige-50 border border-lavender-100 hover:shadow-xl transition-all duration-300">
+          <div class="h-48 bg-gradient-to-br from-softpink-200 via-lavender-100 to-beige-200 flex items-center justify-center">
+            <span class="text-5xl">💎</span>
+          </div>
+          <div class="p-6">
+            <p class="text-xs font-medium text-lavender-500 mb-2">Oct 15, 2026 · Style</p>
+            <h3 class="font-display text-xl font-semibold text-lavender-900 mb-2 group-hover:text-lavender-600 transition">
+              Styling Pearls for Everyday Magic
+            </h3>
+            <p class="text-sm text-lavender-700/80 leading-relaxed mb-4">
+              Pearls aren’t just for special occasions. Here’s how I wear them with jeans, tees, and everything in between...
+            </p>
+            <a href="#" class="text-sm font-medium text-lavender-600 hover:text-lavender-800 inline-flex items-center gap-1">
+              Read more <span>→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Blog Post 3 -->
+        <article class="group rounded-2xl overflow-hidden bg-beige-50 border border-lavender-100 hover:shadow-xl transition-all duration-300">
+          <div class="h-48 bg-gradient-to-br from-softyellow-200 via-lavender-100 to-softpink-100 flex items-center justify-center">
+            <span class="text-5xl">✨</span>
+          </div>
+          <div class="p-6">
+            <p class="text-xs font-medium text-lavender-500 mb-2">Oct 2, 2026 · Behind the Scenes</p>
+            <h3 class="font-display text-xl font-semibold text-lavender-900 mb-2 group-hover:text-lavender-600 transition">
+              Why I Started Unique Finds
+            </h3>
+            <p class="text-sm text-lavender-700/80 leading-relaxed mb-4">
+              The story behind the butterfly, the pearls, and the mission to help you discover your kind of unique...
+            </p>
+            <a href="#" class="text-sm font-medium text-lavender-600 hover:text-lavender-800 inline-flex items-center gap-1">
+              Read more <span>→</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="py-16 sm:py-24 bg-gradient-to-b from-lavender-50 to-beige-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row items-center gap-10 lg:gap-16">
+        <!-- Photo -->
+        <div class="flex-shrink-0">
+          <div class="relative">
+            <img src="bessie.jpg" alt="Bessie" class="w-64 h-64 sm:w-72 sm:h-72 object-cover rounded-full border-4 border-white shadow-2xl shadow-lavender-300/40" />
+            <div class="absolute -bottom-2 -right-2 w-16 h-16 rounded-full bg-lavender-500 flex items-center justify-center shadow-lg">
+              <img src="logo-circular.jpg" alt="" class="w-12 h-12 rounded-full" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Text -->
+        <div class="flex-1 text-center md:text-left">
+          <p class="text-sm font-medium tracking-widest uppercase text-lavender-500 mb-2">Meet the Founder</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold text-lavender-900 mb-4">Hi, I’m Bessie</h2>
+          <p class="text-lavender-700/80 leading-relaxed mb-4">
+            Welcome to Unique Finds! I’m passionate about discovering beautiful, one-of-a-kind pieces that make everyday life feel a little more magical. From delicate jewelry to dreamy home accents, I share the things I genuinely love.
+          </p>
+          <p class="text-lavender-700/80 leading-relaxed mb-6">
+            This space is where I post my favorite affiliate finds, write about style & life, and connect with people who appreciate the little details. Thank you for being here 💜
+          </p>
+          <a href="#products" class="inline-flex items-center gap-2 text-lavender-600 font-medium hover:text-lavender-800">
+            See what I’m loving right now <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BEAUTIFULLY UNIQUE QUOTE ========== -->
+  <section class="py-10 sm:py-14 bg-gradient-to-b from-beige-50 to-lavender-50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="rounded-3xl overflow-hidden shadow-2xl shadow-lavender-300/25 border border-lavender-200/50">
+        <img 
+          src="beautifully-unique.png" 
+          alt="Beautifully Unique by Bessie – celebrating individuality and the charm of being different" 
+          class="w-full h-auto block"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DONATIONS ========== -->
+  <section id="donate" class="py-16 sm:py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-softpink-100 mb-6">
+        <span class="text-3xl">💜</span>
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-lavender-900 mb-3">Support Unique Finds</h2>
+      <p class="text-lavender-700/80 mb-2 max-w-lg mx-auto">
+        If you enjoy the finds, the blog, or just want to help keep this little corner of the internet sparkling, you can leave a tip or donation.
+      </p>
+      <p class="text-sm text-lavender-500 mb-8 italic">
+        (We’re still choosing the perfect name for this section — suggestions welcome!)
+      </p>
+
+      <!-- Donation Options -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <button onclick="alert('Replace this with your PayPal, Venmo, or Stripe link!')" class="px-8 py-3.5 rounded-full bg-lavender-600 text-white font-medium shadow-lg shadow-lavender-300/40 hover:bg-lavender-700 transition-all">
+          Send a Tip ✨
+        </button>
+        <button onclick="alert('You can also add a monthly support option here later!')" class="px-8 py-3.5 rounded-full bg-white text-lavender-700 font-medium border border-lavender-200 hover:bg-lavender-50 transition-all">
+          Monthly Support
+        </button>
+      </div>
+
+      <p class="text-xs text-lavender-400">
+        Every contribution helps me spend more time finding unique treasures for you.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-lavender-900 text-lavender-100 py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <img src="logo-circular.jpg" alt="Unique Finds" class="w-12 h-12 rounded-full" />
+          <div>
+            <p class="font-display font-semibold text-lg">Unique Finds</p>
+            <p class="text-sm text-lavender-300">by Bessie</p>
+          </div>
+        </div>
+
+        <div class="flex gap-6 text-sm">
+          <a href="#home" class="hover:text-white transition">Home</a>
+          <a href="#products" class="hover:text-white transition">Finds</a>
+          <a href="#blog" class="hover:text-white transition">Blog</a>
+          <a href="#donate" class="hover:text-white transition">Support</a>
+        </div>
+
+        <p class="text-sm text-lavender-400">
+          © 2026 Unique Finds by Bessie
+        </p>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-lavender-700/50 text-center text-xs text-lavender-400">
+        Discover your kind of unique. ✨
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Navbar background on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('shadow-md');
+      } else {
+        navbar.classList.remove('shadow-md');
+      }
+    });
+
+    // ========== PRODUCTS DATA ==========
+    // Easy to edit! Just add more objects to this array.
+    // Replace image urls with your product photos later.
+    const products = [
+      {
+        id: 1,
+        title: "Pearl Drop Earrings",
+        description: "Elegant freshwater pearl drops with a soft gold finish. Perfect for everyday sparkle.",
+        price: "$28",
+        image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500&h=500&fit=crop",
+        affiliateLink: "https://example.com/your-affiliate-link-1",
+        tag: "Jewelry"
+      },
+      {
+        id: 2,
+        title: "Lavender Silk Scarf",
+        description: "Lightweight pure silk scarf in a dreamy lavender print. Instant outfit elevators.",
+        price: "$45",
+        image: "https://images.unsplash.com/photo-1584917865442-de89df76accf?w=500&h=500&fit=crop",
+        affiliateLink: "https://example.com/your-affiliate-link-2",
+        tag: "Accessories"
+      },
+      {
+        id: 3,
+        title: "Ceramic Trinket Dish",
+        description: "Hand-glazed ceramic dish with a soft pink blush. Perfect for rings & little treasures.",
+        price: "$22",
+        image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=500&h=500&fit=crop",
+        affiliateLink: "https://example.com/your-affiliate-link-3",
+        tag: "Home"
+      },
+      {
+        id: 4,
+        title: "Butterfly Hair Clips Set",
+        description: "Delicate enamel butterfly clips in purple & gold tones. Soft girl aesthetic approved.",
+        price: "$16",
+        image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=500&fit=crop",
+        affiliateLink: "https://example.com/your-affiliate-link-4",
+        tag: "Accessories"
+      },
+      {
+        id: 5,
+        title: "Scented Soy Candle",
+        description: "Soft vanilla & lavender soy candle in a reusable glass jar. Cozy vibes only.",
+        price: "$24",
+        image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500&h=500&fit=crop",
+        affiliateLink: "https://example.com/your-affiliate-link-5",
+        tag: "Home"
+      },
+      {
+        id: 6,
+        title: "Gold Initial Necklace",
+        description: "Dainty gold-filled initial pendant. Personalized and perfect for layering.",
+        price: "$38",
+        image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=500&h=500&fit=crop",
+        affiliateLink: "https://example.com/your-affiliate-link-6",
+        tag: "Jewelry"
+      }
+    ];
+
+
+    // Render products
+    const productGrid = document.getElementById('productGrid');
+    products.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card bg-white rounded-2xl overflow-hidden border border-lavender-100 shadow-sm transition-all duration-300';
+      card.innerHTML = `
+        <div class="relative aspect-square overflow-hidden bg-lavender-50">
+          <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover" loading="lazy"
+               onerror="this.src='https://placehold.co/400x400/E8D5F2/7A458C?text=Unique+Find'" />
+          <span class="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium rounded-full bg-white/90 text-lavender-700 backdrop-blur-sm">
+            ${product.tag}
+          </span>
+        </div>
+        <div class="p-5">
+          <h3 class="font-display text-lg font-semibold text-lavender-900 mb-1">${product.title}</h3>
+          <p class="text-sm text-lavender-600/80 mb-3 line-clamp-2">${product.description}</p>
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-lavender-800">${product.price}</span>
+            <a href="${product.affiliateLink}" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-lavender-100 text-lavender-700 text-sm font-medium hover:bg-lavender-500 hover:text-white transition-all">
+              Shop Now
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      `;
+      productGrid.appendChild(card);
+    });
+
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(reg => console.log('Service Worker registered'))
+          .catch(err => console.log('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
+
+<script async src="/.netlify/scripts/hud?variant=public" data-nf-variant="public" data-netlify-site-id="6a28f582-506e-4fd9-bca0-8c61852e40de" data-app-host="app.netlify.com" data-account-tier="free"></script>
